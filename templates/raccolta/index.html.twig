@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Raccolta index{% endblock %}
+
+{% block body %}
+    <h1>Raccolta index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Kg_olive</th>
+                <th>Kg_olio</th>
+                <th>Resa_lt_qt</th>
+                <th>Litri_teorici</th>
+                <th>Litri_reali</th>
+                <th>Data</th>
+                <th>Spesa</th>
+                <th>Anno</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for raccoltum in raccoltas %}
+            <tr>
+                <td>{{ raccoltum.id }}</td>
+                <td>{{ raccoltum.kgOlive }}</td>
+                <td>{{ raccoltum.kgOlio }}</td>
+                <td>{{ raccoltum.resaLtQt }}</td>
+                <td>{{ raccoltum.litriTeorici }}</td>
+                <td>{{ raccoltum.litriReali }}</td>
+                <td>{{ raccoltum.data ? raccoltum.data|date('Y-m-d') : '' }}</td>
+                <td>{{ raccoltum.spesa }}</td>
+                <td>{{ raccoltum.anno }}</td>
+                <td>
+                    <a href="{{ path('raccolta_show', {'id': raccoltum.id}) }}">show</a>
+                    <a href="{{ path('raccolta_edit', {'id': raccoltum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('raccolta_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Raccolta{% endblock %}
+
+{% block body %}
+    <h1>Raccolta</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ raccoltum.id }}</td>
+            </tr>
+            <tr>
+                <th>Kg_olive</th>
+                <td>{{ raccoltum.kgOlive }}</td>
+            </tr>
+            <tr>
+                <th>Kg_olio</th>
+                <td>{{ raccoltum.kgOlio }}</td>
+            </tr>
+            <tr>
+                <th>Resa_lt_qt</th>
+                <td>{{ raccoltum.resaLtQt }}</td>
+            </tr>
+            <tr>
+                <th>Litri_teorici</th>
+                <td>{{ raccoltum.litriTeorici }}</td>
+            </tr>
+            <tr>
+                <th>Litri_reali</th>
+                <td>{{ raccoltum.litriReali }}</td>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <td>{{ raccoltum.data ? raccoltum.data|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Spesa</th>
+                <td>{{ raccoltum.spesa }}</td>
+            </tr>
+            <tr>
+                <th>Anno</th>
+                <td>{{ raccoltum.anno }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('raccolta_index') }}">back to list</a>
+
+    <a href="{{ path('raccolta_edit', {'id': raccoltum.id}) }}">edit</a>
+
+    {{ include('raccolta/_delete_form.html.twig') }}
+{% endblock %}
