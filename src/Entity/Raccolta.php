@@ -79,7 +79,7 @@ class Raccolta
         return $this->kg_olio;
     }
 
-    public function setKgOlio(int $kg_olio): self
+    public function setKgOlio(int $kg_olio = 0): self
     {
         $this->kg_olio = $kg_olio;
 
@@ -91,9 +91,9 @@ class Raccolta
         return $this->resa_lt_qt;
     }
 
-    public function setResaLtQt(float $resa_lt_qt): self
+    public function setResaLtQt(float $resa_lt_qt = 0): self
     {
-        $this->resa_lt_qt = $resa_lt_qt;
+        $this->resa_lt_qt = (($this->getKgOlio()/$this->getKgOlive())*100);
 
         return $this;
     }
@@ -103,9 +103,9 @@ class Raccolta
         return $this->litri_teorici;
     }
 
-    public function setLitriTeorici(float $litri_teorici): self
+    public function setLitriTeorici(float $litri_teorici = 0): self
     {
-        $this->litri_teorici = $litri_teorici;
+        $this->litri_teorici = ($this->getKgOlio()*0.925);
 
         return $this;
     }
@@ -115,7 +115,7 @@ class Raccolta
         return $this->litri_reali;
     }
 
-    public function setLitriReali(float $litri_reali): self
+    public function setLitriReali(float $litri_reali = 0): self
     {
         $this->litri_reali = $litri_reali;
 

@@ -1,54 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Raccolta{% endblock %}
+{% block title %}Record #{{ raccoltum.id }}{% endblock %}
 
-{% block body %}
-    <h1>Raccolta</h1>
-
-    <table class="table">
-        <tbody>
+{% block content %}
+    <div class="container">
+        <h1>Record #{{ raccoltum.id }}</h1>
+        <div class="row">
+            <div class="col-lg-6"><h3>Anno: {{ raccoltum.anno }}</h3></div>
+            <div class="col-lg-6 text-right"><h3>Data: {{ raccoltum.data ? raccoltum.data|date('d/m/Y') : '' }}</h3></div>
+        </div>
+        <table class="table">
+            <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ raccoltum.id }}</td>
-            </tr>
-            <tr>
-                <th>Kg_olive</th>
+                <th>Kg olive</th>
                 <td>{{ raccoltum.kgOlive }}</td>
             </tr>
             <tr>
-                <th>Kg_olio</th>
+                <th>Kg olio</th>
                 <td>{{ raccoltum.kgOlio }}</td>
             </tr>
             <tr>
-                <th>Resa_lt_qt</th>
+                <th>Resa litri/quintale</th>
                 <td>{{ raccoltum.resaLtQt }}</td>
             </tr>
             <tr>
-                <th>Litri_teorici</th>
+                <th>Litri teorici</th>
                 <td>{{ raccoltum.litriTeorici }}</td>
             </tr>
             <tr>
-                <th>Litri_reali</th>
+                <th>Litri reali</th>
                 <td>{{ raccoltum.litriReali }}</td>
             </tr>
             <tr>
-                <th>Data</th>
-                <td>{{ raccoltum.data ? raccoltum.data|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Spesa</th>
-                <td>{{ raccoltum.spesa }}</td>
+                <td>&euro; {{ raccoltum.spesa }}</td>
             </tr>
-            <tr>
-                <th>Anno</th>
-                <td>{{ raccoltum.anno }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <a href="{{ path('raccolta_index') }}">back to list</a>
-
-    <a href="{{ path('raccolta_edit', {'id': raccoltum.id}) }}">edit</a>
-
-    {{ include('raccolta/_delete_form.html.twig') }}
+        <button type="button" class="btn btn-outline-primary btn-sm"><a href="{{ path('raccolta_index') }}">Indietro</a></button>
+        <button type="button" class="btn btn-outline-primary btn-sm"><a href="{{ path('raccolta_edit', {'id': raccoltum.id}) }}">modifica</a></button>
+        <br/><br/>
+        {{ include('raccolta/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
