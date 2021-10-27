@@ -4,9 +4,22 @@ namespace App\Entity;
 
 use App\Repository\OlivetoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\OliveTreesListApi;
 
 /**
  * @ORM\Entity(repositoryClass=OlivetoRepository::class)
+ * @ApiResource(
+ *      itemOperations={
+ *       "get",
+ *       "get_all" = {
+ *       "method" = "GET",
+ *       "path" = "/olivetolistapi",
+ *       "controller" = OliveTreesListApi::class,
+ *       "read"=false,
+ *     },
+ *     }
+ * )
  */
 class Oliveto
 {

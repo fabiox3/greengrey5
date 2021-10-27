@@ -58,25 +58,34 @@
 
                     map.addObject(group);
 
-                    // add 'tap' event listener, that opens info bubble, to the group
                     group.addEventListener('tap', function (evt) {
-                        // event target is the marker itself, group is a parent event target
-                        // for all objects that it contains
                         var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
-                            // read custom data
                             content: evt.target.getData()
                         });
-                        // show info bubble
                         ui.addBubble(bubble);
                     }, false);
 
-                    addMarkerToGroup(group, {lat: 39.323041, lng: 9.059667},
-                        '<div><a href="{{ path('oliveto')}}/A001">A001</a></div>' +
-                        '<div>Fila 1<br />Settore: A</div>');
+                    getDataFromAPI(group);
+                }
 
-                    addMarkerToGroup(group, {lat: 39.323112, lng: 9.059622},
-                        '<div><a href="{{ path('oliveto')}}/A002">A002</a></div>' +
-                        '<div>Fila 1<br />Settore: A</div>');
+                function getDataFromAPI(group) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://127.0.0.1:8000/api/olivetolistapi',
+                        dataType: 'json',
+                        success: function (data) {
+                            $.each(data, function (k, v) {
+                                $.each(v, function () {
+                                    addMarkerToGroup(group, {lat: v.latitude, lng: v.longitude},
+                                        '<div><a href="{{ path('oliveto')}}/' + v.code + '">' + v.code +  '</a></div>' +
+                                        '<div>Fila ' + v.fieldrow +  '<br />Settore: ' + v.sector + '</div>');
+                                })
+                            });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.status);
+                        },
+                    });
                 }
 
                 //Step 1: initialize communication with the platform
