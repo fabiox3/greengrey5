@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Oliveto;
+use App\Entity\OlivetoDetails;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,12 +33,16 @@ class OlivetoController extends AbstractController
 
         if (!$oliveto) {
             throw $this->createNotFoundException(
-                'No tree found for code '.$code
+                'No tree found for code ' . $code
             );
         }
 
+        foreach( $oliveto as $o ) {
+            $details = $o->getOlivetoDetails()->toArray();
+        }
+
         // return new Response('Check out this great product: '.$oliveto->getName());
-        return $this->render('oliveto/show.html.twig', ['olivos' => $oliveto]);
+        return $this->render('oliveto/show.html.twig', ['olivos' => $oliveto, 'details'=>$details]);
 
         // or render a template
         // in the template, print things with {{ product.name }}

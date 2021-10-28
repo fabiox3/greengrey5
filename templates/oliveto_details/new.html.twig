@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuovo dettaglio{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Crea nuova nota</h1>
+
+        {{ include('oliveto_details/_form.html.twig') }}
+
+        <button type="button" class="btn btn-outline-primary btn-sm"><a href="{{ path('oliveto') }}">Indietro</a></button>
+    </div>
+    <script type="text/javascript">
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        var idvalue = getUrlParameter('id');
+
+        $('#form_code option').filter(function(){
+            return this.value == idvalue;
+        }).prop("selected", true);
+    </script>
+{% endblock %}

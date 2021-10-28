@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit OlivetoDetails{% endblock %}
+
+{% block body %}
+    <h1>Edit OlivetoDetails</h1>
+
+    {{ include('oliveto_details/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('oliveto_details_index') }}">back to list</a>
+
+    {{ include('oliveto_details/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OlivetoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\OliveTreesListApi;
@@ -59,6 +61,16 @@ class Oliveto
      * @ORM\Column(type="integer")
      */
     private $fieldrow;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OlivetoDetails::class, mappedBy="code")
+     */
+    private $olivetoDetails;
+
+    public function __construct()
+    {
+        $this->olivetoDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,5 +147,40 @@ class Oliveto
         $this->fieldrow = $fieldrow;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|OlivetoDetails[]
+     */
+    public function getOlivetoDetails(): Collection
+    {
+        return $this->olivetoDetails;
+    }
+
+    public function addOlivetoDetail(OlivetoDetails $olivetoDetail): self
+    {
+        if (!$this->olivetoDetails->contains($olivetoDetail)) {
+            $this->olivetoDetails[] = $olivetoDetail;
+            $olivetoDetail->setCode($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOlivetoDetail(OlivetoDetails $olivetoDetail): self
+    {
+        if ($this->olivetoDetails->removeElement($olivetoDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($olivetoDetail->getCode() === $this) {
+                $olivetoDetail->setCode(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->code;
     }
 }

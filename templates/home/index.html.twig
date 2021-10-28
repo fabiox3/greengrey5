@@ -73,16 +73,16 @@
                         type: 'GET',
                         url: 'http://127.0.0.1:8000/api/olivetolistapi',
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             $.each(data, function (k, v) {
                                 $.each(v, function () {
                                     addMarkerToGroup(group, {lat: v.latitude, lng: v.longitude},
-                                        '<div><a href="{{ path('oliveto')}}/' + v.code + '">' + v.code +  '</a></div>' +
+                                        '<div><a href="{{ path('oliveto')}}/details/' + v.code + '">' + v.code +  '</a></div>' +
                                         '<div>Fila ' + v.fieldrow +  '<br />Settore: ' + v.sector + '</div>');
                                 })
                             });
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, textStatus, errorThrown) {
                             alert(jqXHR.status);
                         },
                     });
@@ -109,20 +109,8 @@
                 // MapEvents enables the event system
                 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
                 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
                 // Create the default UI components
                 var ui = H.ui.UI.createDefault(map, defaultLayers);
-
-                /*var LocationOfMarker = { lat: 39.323041, lng: 9.059667 };
-
-                // Create a marker icon from an image URL:
-                var icon = new H.map.Icon('{{ asset('images/marker.png') }}', { size: { w: 56, h: 56 } });
-
-                // Create a marker using the previously instantiated icon:
-                var marker = new H.map.Marker(LocationOfMarker, { icon: icon });
-
-                // Add the marker to the map:
-                map.addObject(marker);*/
 
                 addInfoBubble(map);
 
