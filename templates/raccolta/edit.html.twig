@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifica record{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Modifica record</h1>
+
+        {{ include('raccolta/_form.html.twig', {'button_label': 'Aggiorna'}) }}
+
+        <button type="button" class="btn btn-outline-primary btn-sm"><a href="{{ path('raccolta_index') }}">Indietro</a></button>
+
+        {{ include('raccolta/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

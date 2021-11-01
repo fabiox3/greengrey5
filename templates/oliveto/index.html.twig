@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista olivi{% endblock %}
+
+{% block content %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container">
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('#olivilist').DataTable();
+        } );
+    </script>
+    <h1>Lista olivi</h1>
+    <table id="olivilist" class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Codice</th>
+            <th scope="col">Latitudine</th>
+            <th scope="col">Longitudine</th>
+            <th scope="col">Settore</th>
+            <th scope="col">Fila</th>
+            <th scope="col">Azioni</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for oliveto in olivetos %}
+            <tr>
+                <th scope="row">{{ oliveto.id }}</th>
+                <td>{{ oliveto.code }}</td>
+                <td>{{ oliveto.latitude }}</td>
+                <td>{{ oliveto.longitude }}</td>
+                <td>{{ oliveto.sector }}</td>
+                <td>{{ oliveto.fieldrow }}</td>
+                <td><a href="{{ path('oliveto') }}/{{ oliveto.code }}"><button type="button" class="btn btn-primary btn-sm">Scheda</button></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

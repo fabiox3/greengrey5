@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Raccolta annuale{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Resoconto Annuale</h1>
+        <script type="text/javascript">
+            $(document).ready(function() {
+               $('#raccoltaIndexTable').DataTable({
+                   "order": [[ 6, "desc" ]]
+               })
+            });
+        </script>
+        <table id="raccoltaIndexTable" class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Kg olive</th>
+                <th>Kg olio</th>
+                <th>Resa lt/qt</th>
+                <th>Litri teorici</th>
+                <th>Litri reali</th>
+                <th>Data</th>
+                <th>Spesa</th>
+                <th>Anno</th>
+                <th>Azioni</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for raccoltum in raccoltas %}
+                <tr>
+                    <td>{{ raccoltum.id }}</td>
+                    <td>{{ raccoltum.kgOlive }}</td>
+                    <td>{{ raccoltum.kgOlio }}</td>
+                    <td>{{ raccoltum.resaLtQt }}</td>
+                    <td>{{ raccoltum.litriTeorici }}</td>
+                    <td>{{ raccoltum.litriReali }}</td>
+                    <td>{{ raccoltum.data ? raccoltum.data|date('Y-m-d') : '' }}</td>
+                    <td>€ {{ raccoltum.spesa }}</td>
+                    <td>{{ raccoltum.anno }}</td>
+                    <td>
+                        <a href="{{ path('raccolta_show', {'id': raccoltum.id}) }}"><button type="button" class="btn btn-primary btn-sm">mostra</button></a>
+                        <a href="{{ path('raccolta_edit', {'id': raccoltum.id}) }}"><button type="button" class="btn btn-warning btn-sm">modifica</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('raccolta_new') }}"><button type="button" class="btn btn-success btn-sm">Aggiungi record</button></a>
+    </div>
+{% endblock %}
