@@ -88,7 +88,7 @@ class Raccolta
 
     public function getResaLtQt(): ?float
     {
-        return $this->resa_lt_qt;
+        return number_format(floatval($this->resa_lt_qt), 2);
     }
 
     public function setResaLtQt(float $resa_lt_qt = 0): self

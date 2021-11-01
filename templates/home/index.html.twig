@@ -88,6 +88,19 @@
                     });
                 }
 
+                function updatePosition(position) {
+
+                    var hereIAmCcoordinates = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    var icon = new H.map.Icon('images/orange-dot.png');
+                    var marker = new H.map.Marker(hereIAmCcoordinates, { icon: icon });
+                    map.addObject(marker);
+                    map.setCenter(hereIAmCcoordinates);
+                }
+
                 //Step 1: initialize communication with the platform
                 // Replace variable YOUR_API_KEY with your own apikey
                 var platform = new H.service.Platform({
@@ -109,6 +122,18 @@
                 // MapEvents enables the event system
                 // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
                 var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+                // geolocation
+                if( navigator.geolocation ) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        map.setCenter({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        });
+                    });
+                    navigator.geolocation.watchPosition(updatePosition);
+                }
+
                 // Create the default UI components
                 var ui = H.ui.UI.createDefault(map, defaultLayers);
 
