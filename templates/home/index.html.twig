@@ -71,7 +71,7 @@
                 function getDataFromAPI(group) {
                     $.ajax({
                         type: 'GET',
-                        url: 'http://127.0.0.1:8000/api/olivetolistapi',
+                        url: 'https://www.greengrey.net/app/public/api/olivetolistapi',
                         dataType: 'json',
                         success: function(data) {
                             $.each(data, function (k, v) {
@@ -89,7 +89,6 @@
                 }
 
                 function updatePosition(position) {
-
                     var hereIAmCcoordinates = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -131,6 +130,7 @@
                             lng: position.coords.longitude
                         });
                     });
+                    navigator.geolocation.watchPosition(null);
                     navigator.geolocation.watchPosition(updatePosition);
                 }
 
