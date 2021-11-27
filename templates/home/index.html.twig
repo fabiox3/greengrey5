@@ -45,6 +45,7 @@
             </div>
             <div style="width: 100vw;height: 100vh;" id="mapContainer"></div>
             <script>
+                var id;
 
                 function addMarkerToGroup(group, coordinate, html) {
                     var marker = new H.map.Marker(coordinate);
@@ -77,7 +78,7 @@
                             $.each(data, function (k, v) {
                                 $.each(v, function () {
                                     addMarkerToGroup(group, {lat: v.latitude, lng: v.longitude},
-                                        '<div><a href="{{ path('oliveto')}}/details/' + v.code + '">' + v.code +  '</a></div>' +
+                                        '<div><a href="{{ path('oliveto')}}/' + v.code + '">' + v.code +  '</a></div>' +
                                         '<div>Fila ' + v.fieldrow +  '<br />Settore: ' + v.sector + '</div>');
                                 })
                             });
@@ -98,6 +99,18 @@
                     var marker = new H.map.Marker(hereIAmCcoordinates, { icon: icon });
                     map.addObject(marker);
                     map.setCenter(hereIAmCcoordinates);
+                }
+
+                function success(position) {
+                    var crd = position.coords;
+                    var target = {
+                        latitude : 0,
+                        longitude: 0
+                    };
+
+                    if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+                        return id;
+                    }
                 }
 
                 //Step 1: initialize communication with the platform
@@ -130,8 +143,9 @@
                             lng: position.coords.longitude
                         });
                     });
-                    navigator.geolocation.watchPosition(null);
+
                     navigator.geolocation.watchPosition(updatePosition);
+                    navigator.geolocation.clearWatch(navigator.geolocation.watchPosition(updatePosition));
                 }
 
                 // Create the default UI components
